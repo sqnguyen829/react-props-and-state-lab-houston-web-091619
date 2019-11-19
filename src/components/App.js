@@ -27,22 +27,30 @@ class App extends React.Component {
   
   onFindPetsClick = () => {
   
-  
-
   }
  
   fillList = () => {
-    fetch('/api/pets')
+    let currentType =""
+    if(this.state.filters.type==='all'){
+      currentType = ''
+    }else if(this.state.filters.type==='dog'){
+      currentType = '?type=dog'
+    }else if(this.state.filters.type==='cat'){
+      currentType = '?type=cat'
+    }else if(this.state.filters.type==='micropig'){
+      currentType = '?type=micropig'
+    }
+
+    fetch(`/api/pets${currentType}`)
     .then (res => res.json())
     .then (data => {
       this.setState({
         pets: data
       })
       console.log(this.state.pets)
-      
     })
-    //  console.log(this.state.pets)
   }
+
 
   render() {
     return (
